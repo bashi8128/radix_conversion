@@ -1,5 +1,5 @@
 //! Author: Masahiro Itabashi <itabasi.lm@gmail.com>
-//! Last modified: Sun, 29 Sep 2019 22:07:00 +0900
+//! Last modified: Mon, 24 Oct 2022 04:23:07 AM +0900.
 
 use clap::Parser;
 
@@ -13,11 +13,17 @@ enum PossibleBase {
 
 #[derive(Parser)]
 struct Args {
+    /// Regard input NUM as IN_BASE based number.
     #[arg(short, long, value_enum, default_value_t = PossibleBase::Hex)]
     in_base: PossibleBase,
 
+    /// Convert input NUM into OUT_BASE based number.
     #[arg(short, long, value_enum, default_value_t = PossibleBase::Dec)]
     out_base: PossibleBase,
+
+    /// If specified, the input NUM will be converted into all possible bases
+    #[arg(short, long, default_value_t = false)]
+    all_out: bool,
 
     num: String,
 }
@@ -34,12 +40,19 @@ fn main() {
 
     match i64::from_str_radix(&args.num, input_base) {
         Ok(i) => {
-            match args.out_base {
-                PossibleBase::Bin => println!("{:b}", i),
-                PossibleBase::Oct => println!("{:o}", i),
-                PossibleBase::Dec => println!("{}", i),
-                PossibleBase::Hex => println!("{:x}", i),
-            };
+            if args.all_out {
+                println!("Bin: {:b}", i);
+                println!("Oct: {:o}", i);
+                println!("Dec: {}", i);
+                println!("Hex: {:x}", i);
+            } else {
+                match args.out_base {
+                    PossibleBase::Bin => println!("{:b}", i),
+                    PossibleBase::Oct => println!("{:o}", i),
+                    PossibleBase::Dec => println!("{}", i),
+                    PossibleBase::Hex => println!("{:x}", i),
+                };
+            }
         }
         Err(e) => {
             eprintln!("Failed to convert NUM into numerical value: {:}", e);
