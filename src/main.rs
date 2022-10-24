@@ -1,5 +1,5 @@
 //! Author: Masahiro Itabashi <itabasi.lm@gmail.com>
-//! Last modified: Mon, 24 Oct 2022 04:23:07 AM +0900.
+//! Last modified: Mon, 24 Oct 2022 01:34:47 PM +0900.
 
 use clap::Parser;
 
@@ -12,6 +12,7 @@ enum PossibleBase {
 }
 
 #[derive(Parser)]
+#[command(author, version, about, long_about = None)]
 struct Args {
     /// Regard input NUM as IN_BASE based number.
     #[arg(short, long, value_enum, default_value_t = PossibleBase::Hex)]

@@ -2,6 +2,8 @@
 name = "radix_converter"
 version = "0.1.0"
 edition = "2021"
+authors = ["Masahiro Itabashi <itabasi.lm@gmail.com>"]
+description = "Conver a number from one radix to onother one"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
