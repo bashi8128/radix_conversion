@@ -132,7 +132,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "radix_conversion"
+name = "radix_converter"
 version = "0.1.0"
 dependencies = [
  "clap",
